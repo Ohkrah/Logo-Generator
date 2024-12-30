@@ -1,24 +1,20 @@
 
 const inquirer = require('inquirer');
+const { Circle } = require('../Circle/circle');
+const { Square } = require('../Square/square');
+const { Triangle } = require('../Triangle/triangle');
 
 class Shape {
-    constructor(color, text, textColor) {
-
-        //text conditions
-        if(text.length > 3){
-            throw new Error('`text` must be shorter than 3 characters');
-        }
-
-        if(text.length < 1){
-            throw new Error('`text` must be at least than 1 character');
-        }
+    createSVG(renderFunction){
+        fs.writeFile('logo.svg', renderFunction, (err) => err ? console.log(err) : console.log('svg made successfully')
+        );
     }
     run(){
         inquirer.prompt([
             {
                 type: 'input',
                 name: 'shape',
-                message: 'Enter a shape in lowercase: '
+                message: 'Choose a shape: triangle, circle or square. \nEnter your shape in lowercase: '
             },
             {
                 type: 'input',
@@ -37,14 +33,31 @@ class Shape {
             },
         ])
         .then(({shape,color, text, textColor}) => {
+            //text conditions
+            if(text.length > 3){
+                throw new Error('`text` must be shorter than 3 characters');
+            }
+
+            if(text.length < 1){
+                throw new Error('`text` must be at least than 1 character');
+            }
             this.text = text;
             this.textColor = textColor;
             this.color = color;
 
-            if(shape !== 'square' || 'circle' || 'triangle'){
-                throw new Error('`shape` must be `square`, `circle`, or `triangle`');
+            if(shape == 'circle'){
+                const newCirc = new Circle();
+                this.createSVG(newCirc.render())
+            } else if (shape == 'square'){
+                const newSqu = new Square();
+                this.createSVG(newSqu.render())
+            } else if (shape == 'triangle'){
+                const newTri = new Triangle();
+                this.createSVG(newTri.render())
             }
 
+            console.log(`shape: ${shape}, color: ${color}, text: ${text}, textColor: ${textColor}`);
+            
         })
         .catch((err) => {
             console.log(err);
@@ -53,4 +66,4 @@ class Shape {
     }
 } 
 
-module.exports = { Shape };
+module.exports =  Shape ;

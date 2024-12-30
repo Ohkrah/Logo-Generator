@@ -1,16 +1,26 @@
 const { Shape } = require("../Shapes/shapes");
+const fs = require('fs')
 
-class square extends Shape {
-    constructor(color, text, textColor){
-        super(color,text,textColor);
-        x = '0';
-        y = '0';
-        width = '50';
-        height = '50';
+class Square {
+    constructor(){
+        // super(color,text,textColor);
+        x = '150';
+        y = '100';
+        width = '160';
+        height = '160';
     }
     render(){
-        return `<rect x=${x} y=${y} width=${width} height=${height}/>`
+        return (
+            `<svg version="1.1" width="300" height="200" xmlns="http://www.w3.org/2000/svg">
+    
+      <rect x=${x} y=${y} width=${width} height=${height} fill=${color} />
+    
+      <text x="150" y="125" font-size="60" text-anchor="middle" fill=${textColor}>${text}</text>
+    
+    </svg>`
+    
+            )
     }
 }
 
-module.exports = { square };
+module.exports = { Square };
