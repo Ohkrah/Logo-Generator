@@ -1,15 +1,14 @@
-const { shape } = require("../Shapes/shapes");
+const { Shape } = require("../Shapes/shapes");
 
-class circle extends shape {
+class circle extends Shape {
     constructor(color, text, textColor){
-        super(color,text);
-        this.textColor = textColor;
-        cx = 0;
-        cy = 0;
-        r = 50;
+        super(color,text,textColor);
+        cx = '0';
+        cy = '0';
+        r = '50';
     }
-    setTextColor(textColor){
-        this.textColor = textColor;
+    render(){
+        return `<circle cx=${cx} cy=${cy} r=${r}/>`
     }
 }
 
